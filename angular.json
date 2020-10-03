@@ -7,9 +7,8 @@
       "projectType": "application",
       "schematics": {
         "@schematics/angular:component": {
-          "inlineTemplate": true,
-          "inlineStyle": true,
-          "skipTests": true
+          "skipTests": true,
+          "style": "scss"
         },
         "@schematics/angular:class": {
           "skipTests": true
@@ -38,7 +37,7 @@
       "prefix": "app",
       "architect": {
         "build": {
-          "builder": "@angular-devkit/build-angular:browser",
+          "builder": "@angular-builders/custom-webpack:browser",
           "options": {
             "outputPath": "dist/intro-tailwind",
             "index": "src/index.html",
@@ -51,9 +50,12 @@
               "src/assets"
             ],
             "styles": [
-              "src/styles.css"
+              "src/styles.scss"
             ],
-            "scripts": []
+            "scripts": [],
+            "customWebpackConfig": {
+              "path": "webpack.config.js"
+            }
           },
           "configurations": {
             "production": {
@@ -87,9 +89,12 @@
           }
         },
         "serve": {
-          "builder": "@angular-devkit/build-angular:dev-server",
+          "builder": "@angular-builders/custom-webpack:dev-server",
           "options": {
-            "browserTarget": "intro-tailwind:build"
+            "browserTarget": "intro-tailwind:build",
+            "customWebpackConfig": {
+              "path": "webpack.config.js"
+            }
           },
           "configurations": {
             "production": {
@@ -104,6 +109,10 @@
           }
         }
       }
-    }},
-  "defaultProject": "intro-tailwind"
+    }
+  },
+  "defaultProject": "intro-tailwind",
+  "cli": {
+    "analytics": "4967281c-25ec-4fe7-ad7b-67a76f755eec"
+  }
 }
